@@ -1,0 +1,23 @@
+### token var
+
+@token = eyzj688AbQ.S5AxCJ-Y9C58gpBBOsyqXFUEncQZ-XhESqXRSpEojW0
+
+### get apikey
+GET http://10.106.107.31:8080/api/v1/apikey
+Authorization: Bearer {{token}}
+
+### get user
+GET http://10.106.107.31:8080/api/v1/user
+Authorization: Bearer {{token}}
+
+### get node
+GET http://10.106.107.31:8080/api/v1/node
+Authorization: Bearer {{token}}
+
+### get route
+GET http://10.106.107.31:8080/api/v1/routes
+Authorization: Bearer {{token}}
+
+### get preauthkey
+GET http://10.106.107.31:8080/api/v1/preauthkey?user=myuser
+Authorization: Bearer {{token}}
