@@ -10,7 +10,7 @@ services:
       - 8080:8080
       - 9090:9090
     volumes:
-      - ./config:/etc/headscale/
+      - ./config.yaml:/etc/headscale/config.yaml
       - ./data:/var/lib/headscale/
       - ./run:/var/run/headscale
 
@@ -23,8 +23,8 @@ services:
     ports:
       - 5000:5000
     volumes:
-      - ./webui:/data
-      - ./config/:/etc/headscale/:ro
+      - ./key.txt:/data/key.txt
+      - ./config.yaml/:/etc/headscale/config.yaml:ro
     environment:
       - HS_SERVER=http://10.106.107.31:8080
       - KEY=YEISfFuf9d9YRjQ7bwQf4eLna5NwqQ8G4qFi0GMLXgc=

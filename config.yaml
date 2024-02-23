@@ -10,7 +10,7 @@
 #
 # https://myheadscale.example.com:443
 #
-server_url: http://10.106.107.31:8080
+server_url: http://10.106.107.31
 
 # Address to listen to / bind to on the server
 #

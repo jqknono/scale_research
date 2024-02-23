@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>My First HTML Page</title>
+</head>
+
+<body>
+    <h2>headscale ui</h2>
+    <ul>
+        <li><a href="./manager">SimcuTeam headscale-ui</a></li>
+        <li><a href="./web">gurucomputing headscale-ui</a></li>
+        <li><a href="./overview">headscale-webui</a></li>
+    </ul>
+    <h2>headscale url</h2>
+    <code class="url">http://10.106.107.31:8080</code>
+    <h2>api key</h2>
+    <code class="apikey">RDPl_T6Eog.uPIG1m9JkuqnMw9x7DWZBozwy7KTqnG7tycm1YNcBSc</code>
+    <h2>Install</h2>
+    <ul>
+        <li>
+            <p>Windows</p>
+            <pre>
+            <code>
+    New-Item -Path "HKLM:\SOFTWARE\Tailscale IPN"
+    New-ItemProperty -Path 'HKLM:\Software\Tailscale IPN' -Name UnattendedMode -PropertyType String -Value always
+    New-ItemProperty -Path 'HKLM:\Software\Tailscale IPN' -Name LoginURL -PropertyType String -Value https://YOUR-HEADSCALE-URL
+            </code >
+        </pre>
+        </li>
+        <li>
+            <p>Linux</p>
+            <ol>
+                <li>
+                    <p>Register a machine (normal login)</p>
+                    <pre>
+            <code>
+    headscale users create myfirstuser
+    tailscale up --login-server http://10.106.107.31:8080
+    headscale --user myfirstuser nodes register --key YOUR_MACHINE_KEY
+    docker exec headscale headscale --user myfirstuser nodes register --key YOUR_MACHINE_KEY
+            </code>
+        </pre>
+                </li>
+                <li>
+                    <p>Register machine using a pre authenticated key</p>
+                    <pre>
+                    <code>
+    headscale --user myfirstuser preauthkeys create --reusable --expiration 24h
+    tailscale up --login-server http://10.106.107.31:8080 --authkey 1928aee74850c8e86d0e665f3bfa15ae9ab54f7e1cfea927
+                    </code>
+                </pre>
+                </li>
+            </ol>
+    </ul>
+</body>
+
+</html>
