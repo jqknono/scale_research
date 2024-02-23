@@ -7,13 +7,13 @@ default_gw=$(echo $default_gw | awk -F. '{print $1"."$2"."$3".0"}')
 # get the ip address of the default gateway
 default_ip=$(ip route | grep $default_gw | awk '{print $9}')
 # replace the line "<code class="url">.*</code>" with the new default_ip
-sed -i "s/<code class=\"url\">.*<\/code>/<code class=\"url\">http:\/\/$default_ip:8080<\/code>/" html/index.html
+sed -i "s/<code class=\"url\">.*<\/code>/<code class=\"url\">http:\/\/$default_ip<\/code>/" html/index.html
 
 # replace all "tailscale up --login-server http://10.106.107.31" with http://$default_ip
 sed -i "s/tailscale up --login-server http:\/\/[^ ]*/tailscale up --login-server http:\/\/$default_ip:8080/ " ./html/index.html
 
 # replace "server_url: .*" with "server_url: http://$default_ip"
-sed -i "s/server_url: .*/server_url: http:\/\/$default_ip/" ./config.yaml
+sed -i "s/server_url: .*/server_url: http:\/\/$default_ip:8080/" ./config.yaml
 
 # replace "proxy_pass http://.*:" with "proxy_pass http://$default_ip:"
 sed -i "s/proxy_pass http:\/\/.*:/proxy_pass http:\/\/$default_ip:/" ./nginx.conf
@@ -45,3 +45,6 @@ preauth_key=$(echo $result | awk 'END {print $NF}')
 
 # replace "--authkey .*" with "--authkey $preauth_key"
 sed -i "s/--authkey .*/--authkey $preauth_key/" html/index.html
+
+# incase for derp error
+# echo "nameserver 223.5.5.5" > /etc/resolv.conf

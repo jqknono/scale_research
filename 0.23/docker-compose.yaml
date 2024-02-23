@@ -1,0 +1,58 @@
+version: "3.9"
+services:
+  headscale:
+    container_name: headscale
+    image: headscale/headscale:unstable
+    pull_policy: always
+    command: serve
+    restart: unless-stopped
+    ports:
+      - 8080:8080
+      - 9090:9090
+    volumes:
+      - ./config.yaml:/etc/headscale/config.yaml
+      - ./data:/var/lib/headscale/
+      - ./run:/var/run/headscale
+
+  headscale-webui:
+    container_name: headscale-webui
+    # image: ifargle/headscale-webui
+    image: jqknono/headscale-webui:latest
+    pull_policy: if_not_present
+    restart: unless-stopped
+    ports:
+      - 5000:5000
+    volumes:
+      - ./key.txt:/data/key.txt
+      - ./config.yaml:/etc/headscale/config.yaml:ro
+    environment:
+      - HS_SERVER=http://10.106.107.31:8080
+      - KEY=YEISfFuf9d9YRjQ7bwQf4eLna5NwqQ8G4qFi0GMLXgc=
+
+  headscale-ui1:
+    container_name: headscale-ui1
+    image: simcu/headscale-ui:latest
+    pull_policy: if_not_present
+    restart: unless-stopped
+    ports:
+      - 8888:80
+
+  headscale-ui2:
+    container_name: headscale-ui2
+    # image: ghcr.io/gurucomputing/headscale-ui:latest
+    image: jqknono/headscale-ui:nodes
+    pull_policy: always
+    restart: unless-stopped
+    ports:
+      - 9080:80
+
+  nginx:
+    container_name: nginx
+    image: nginx
+    restart: unless-stopped
+    ports:
+      - 80:80
+      - 443:443
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf
+      - ./html:/usr/share/nginx/html

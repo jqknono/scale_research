@@ -2,9 +2,9 @@ version: "3.9"
 services:
   headscale:
     container_name: headscale
-    image: headscale/headscale:0.23
-    pull_policy: if_not_present
-    command: serve
+    image: headscale/headscale:0.22
+    pull_policy: always
+    command: headscale serve
     restart: unless-stopped
     ports:
       - 8080:8080
@@ -16,31 +16,29 @@ services:
 
   headscale-webui:
     container_name: headscale-webui
-    # image: ifargle/headscale-webui
-    image: jqknono/headscale-webui:latest
-    pull_policy: if_not_present
+    image: ifargle/headscale-webui:latest
+    pull_policy: always
     restart: unless-stopped
     ports:
       - 5000:5000
     volumes:
       - ./key.txt:/data/key.txt
-      - ./config.yaml/:/etc/headscale/config.yaml:ro
+      - ./config.yaml:/etc/headscale/config.yaml:ro
     environment:
       - HS_SERVER=http://10.106.107.31:8080
       - KEY=YEISfFuf9d9YRjQ7bwQf4eLna5NwqQ8G4qFi0GMLXgc=
 
-  headscale-ui1:
-    container_name: headscale-ui1
-    image: simcu/headscale-ui:latest
-    pull_policy: if_not_present
-    restart: unless-stopped
-    ports:
-      - 8888:80
+  # headscale-ui1:
+  #   container_name: headscale-ui1
+  #   image: simcu/headscale-ui:latest
+  #   pull_policy: always
+  #   restart: unless-stopped
+  #   ports:
+  #     - 8888:80
 
   headscale-ui2:
     container_name: headscale-ui2
-    # image: ghcr.io/gurucomputing/headscale-ui:latest
-    image: jqknono/headscale-ui:nodes
+    image: ghcr.io/gurucomputing/headscale-ui:latest
     pull_policy: always
     restart: unless-stopped
     ports:

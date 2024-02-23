@@ -10,7 +10,7 @@
 #
 # https://myheadscale.example.com:443
 #
-server_url: http://10.106.107.31
+server_url: http://10.106.107.31:8080
 
 # Address to listen to / bind to on the server
 #
@@ -141,11 +141,6 @@ ephemeral_node_inactivity_timeout: 30m
 # In case of doubts, do not touch the default 10s.
 node_update_check_interval: 10s
 
-# 0.22
-# db_type: sqlite3
-# db_path: /etc/headscale/db.sqlite
-
-# 0.23+
 database:
   type: sqlite
 
@@ -228,7 +223,7 @@ dns_config:
 
   # List of DNS servers to expose to clients.
   nameservers:
-    - 1.1.1.1
+    - 223.5.5.5
 
   # NextDNS (see https://tailscale.com/kb/1218/nextdns/).
   # "abc123" is example NextDNS ID, replace with yours.
