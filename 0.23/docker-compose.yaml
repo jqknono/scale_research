@@ -8,12 +8,12 @@ services:
     restart: unless-stopped
     ports:
       - 8080:8080
-      - 9090:9090
     volumes:
       - ./config.yaml:/etc/headscale/config.yaml
       - ./data:/var/lib/headscale/
       - ./run:/var/run/headscale
 
+  # headscale-webui
   headscale-webui:
     container_name: headscale-webui
     # image: ifargle/headscale-webui
@@ -29,6 +29,7 @@ services:
       - HS_SERVER=http://10.106.107.31:8080
       - KEY=YEISfFuf9d9YRjQ7bwQf4eLna5NwqQ8G4qFi0GMLXgc=
 
+  # HeadScaleUi
   headscale-ui1:
     container_name: headscale-ui1
     image: simcu/headscale-ui:latest
@@ -37,6 +38,7 @@ services:
     ports:
       - 8888:80
 
+  # headscale-ui
   headscale-ui2:
     container_name: headscale-ui2
     # image: ghcr.io/gurucomputing/headscale-ui:latest
